@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<th:block th:include="template/basicTemplate :: head"></th:block>
+<link rel="stylesheet" th:href="@{/css/tendencias.css}">
+</head>
+<body>
+	<header th:replace="template/basicTemplate :: header"></header>
+	<div class="container-fluid my-4">
+		<div class="row">
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-8">
+				<div class="card bg-light mb-3" th:each="twit: ${twits}">
+					<div class="card-header">
+						<span>
+							<span th:text="${twit.usuario.name}">Nombre</span> | 
+							<span th:text="${twit.usuario.username}">Username</span> 
+							<span th:text="${twit.createAt}"></span> 
+						</span>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">Light card title</h5>
+						<p th:text="${twit.texto}" class="card-text"></p>
+					</div>
+				</div>
+				<th:block th:replace="template/paginator :: paginator"></th:block>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+
+	<footer th:replace="template/basicTemplate :: footer"></footer>
+</body>
+</html>

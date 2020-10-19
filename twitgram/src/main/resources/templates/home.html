@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<th:block th:include="template/basicTemplate :: head"></th:block>
+</head>
+<body>
+	<header th:replace="template/basicTemplate :: header"></header>
+	<div class="container-fluid my-4">
+		<div class="row">
+			<div class="col-md-2">
+				<div class="card border-dark mb-3">
+					<div class="card-header" th:text="'Perfil de: ' + ${usuario.username}"></div>
+					<div class="card-body text-dark">
+						<h5 class="card-title" th:text="'Nombre de usuario: ' + ${usuario.name}"></h5>
+						<p class="card-text">
+							<span th:text="'Twits: ' + ${noTwits}"></span><br>
+							<span th:text="'Seguidores: ' + ${numeroUsuariosLeSiguen}"></span><br>
+							<span th:text="'Siguiendo: ' + ${numeroUsuariosSiguiendo}"></span><br>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="alert alert-warning" th:if="${#lists.isEmpty(twits)}">
+					No tienes Twits! Escribe uno ahora mismo!
+				</div>
+				<div class="card bg-light mb-3" th:if="${not #lists.isEmpty(twits)}"
+					th:each="twit: ${twits}">
+
+					<div class="card-header">
+						<span> <span th:text="${usuario.name}">Nombre</span> | <span
+							th:text="${usuario.username}">Username</span> <span
+							th:text="${twit.createAt}"></span>
+						</span>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title" th:text="${twit.texto}">Light card
+							title</h5>
+					</div>
+					<div class="card-footer text-muted">
+						<span>{No comentarios}</span> <span> {No Rts}</span> <span>
+							{No Favs} </span>
+					</div>
+
+				</div>
+				<span th:if="${not #lists.isEmpty(twits)}" th:remove="tag"> 
+					<th:block th:replace="template/paginator :: paginator"></th:block>
+				</span>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+
+	<footer th:replace="template/basicTemplate :: footer"></footer>
+</body>
+</html>

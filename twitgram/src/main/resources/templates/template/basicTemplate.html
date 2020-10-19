@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/basicTemplate.css}">
+</head>
+<body>
+
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" th:href="@{/}">Twitgram</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link"
+						th:href="@{/home}" sec:authorize="isAuthenticated()">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" href="#">TimeLine</a></li>
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" href="#">Buscar</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/tendencias}">Tendencias</a>
+					</li>
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" href="#">Mensajes</a>
+					</li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Idiomas </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">Action</a> <a
+								class="dropdown-item" href="#">Another action</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Something else here</a>
+						</div></li>
+				</ul>
+				<ul class="nav nav-inline my-2 my-lg-0" sec:authorize="!isAuthenticated()">
+					<li class="nav-item">
+						<a class="btn btn-success" th:href="@{/login}">Iniciar Sesión</a>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="POST" 
+					sec:authorize="isAuthenticated()">
+					<button type="submit" class="btn btn-danger">Cerrar
+						Sesión</button>
+				</form>
+			</div>
+		</nav>
+		<div th:if="${success != null}" th:text="${success}" class="alert alert-success"></div>
+		<div th:if="${error != null}" th:text="${error}" class="alert alert-danger"></div>
+		<div th:if="${warning != null}" th:text="${warning}" class="alert alert-warning"></div>
+		<div th:if="${info != null}" th:text="${info}" class="alert alert-info"></div>
+	</header>
+
+	<div class="container-fluid"></div>
+
+	<footer th:fragment="footer">
+		<div class="alert alert-dark text-center" role="alert">&copy;
+			Creado por Andrés Manuel Armesto Fernández</div>
+		<script th:href="@{/js/jquery.js}"></script>
+		<script th:href="@{/js/popper.min.js}"></script>
+		<script th:href="@{/js/bootstrap.min.js}"></script>
+	</footer>
+
+</body>
+</html>

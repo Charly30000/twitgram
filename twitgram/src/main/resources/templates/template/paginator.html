@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/basicTemplate.css}">
+</head>
+<body>
+<th:block th:fragment="paginator">
+	<div id="paginator"></div>
+	
+	<input type="hidden" th:value="${totalPages}" id="totalPages"/>
+	<input type="hidden" th:value="${noActualPage}" id="noActualPage"/>
+	<input type="hidden" th:value="${linkPage}" id="linkPage"/>
+	
+	<script type="text/javascript" th:src="@{/js/paginator.js}"></script>
+	<script type="text/javascript">
+	let totalPages = parseInt(document.getElementById("totalPages").value);
+	let noActualPage = parseInt(document.getElementById("noActualPage").value);
+	let linkPage = document.getElementById("linkPage").value;
+	let obj1 = {
+            totalPages: totalPages,/*Needed*/
+            noActualPage: noActualPage,/*Needed*/
+            idPaginator: "paginator",/*Needed*/
+            ulClass: "pagination",/*Needed*/
+            noElementsPerPage: 3,/*Needed*/
+            firstPage: {/*Optional*/
+                namePage: "Primera",
+                classPage: "page-item",
+                linkPage: linkPage,
+                linkClass: "page-link"
+            },
+            previousPage: {/*Optional*/
+                namePage: "&laquo;",
+                classPage: "page-item",
+                linkPage: linkPage,
+                linkClass: "page-link"
+            },
+            normalPage: {/*Needed*/
+                namePage: '{page}',
+                classPage: "page-item",
+                linkPage: linkPage,
+                linkClass: "page-link"
+            },
+            actualPage: {/*Needed*/
+                namePage: "{page}",
+                classPage: "page-item active",
+                linkPage: linkPage,
+                linkClass: "page-link"
+            },
+            nextPage: {/*Optional*/
+                namePage: "&raquo;",
+                classPage: "page-item",
+                linkPage: linkPage,
+                linkClass: "page-link"
+            },
+            lastPage: {/*Optional*/
+                namePage: "Última",
+                classPage: "page-item",
+                linkPage: linkPage,
+                linkClass: "page-link"
+            }
+
+        }
+        createPaginator(obj1);
+	</script>
+	</th:block>
+</body>
+</html>

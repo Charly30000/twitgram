@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<th:block th:include="template/basicTemplate :: head"></th:block>
+</head>
+<body>
+	<header th:replace="template/basicTemplate :: header"></header>
+	<div class="container">
+		<div class="card border-dark bg-dark text-white my-5">
+		<div class="card-header">Iniciar sesión</div>
+		<div class="card-body py-4">
+			<form role="form" th:action="@{/login}" method="POST">
+				<div class="form-group">
+					 
+					<label for="username">
+						Username
+					</label>
+					<input type="text" name="username" class="form-control" id="username" required/>
+				</div>
+				<div class="form-group">
+					 
+					<label for="password">
+						Password
+					</label>
+					<input type="password" name="password" class="form-control" id="password" required/>
+				</div>
+				<div><a th:href="@{/register}">¿No tienes una cuenta? Registrate pinchando aqui!</a></div>
+				<button type="submit" class="btn btn-primary">
+					Iniciar sesión
+				</button>
+			</form>
+		</div>
+	</div>
+	</div>
+	
+	<footer th:replace="template/basicTemplate :: footer"></footer>
+</body>
+</html>
